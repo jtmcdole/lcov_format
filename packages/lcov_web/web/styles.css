@@ -1,0 +1,161 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+html, body {
+  font-family: 'Roboto', sans-serif;
+  min-width: 100%;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+
+  --primary-color: #01589B;
+}
+
+h1 {
+  font-size: 3rem;
+  margin: unset;
+}
+
+.main {
+  height: 100vh;
+}
+
+table {
+  border: 0px;
+  border-spacing: 0px;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+ol {
+  max-width: 500px;
+}
+
+.coverage-bad {
+  color: red;
+}
+
+.coverage-good {
+  color: green;
+}
+
+.files  {
+  justify-content: left;
+  align-items: left;
+}
+
+.tree-view {
+  list-style: none;
+  min-width: 400px;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.tree-view ul {
+  list-style: none; /* Remove default list styling */
+  padding-left: 20px; /* Indentation for nested levels */
+  margin: 0;
+}
+
+.tree-view li {
+  line-height: 1.5;
+}
+
+.toggle {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.directory::before {
+  content: "📁 "; /* Add directory icon */
+  margin-right: 3px;
+}
+
+.file::before {
+  content: "📄 "; /* Add file icon */
+  margin-right: 3px;
+}
+
+/* Initially hide nested lists */
+.tree-view ul {
+  display: block;
+}
+
+/* Style for expanded state */
+.tree-view li[data-expanded="true"] > ul {
+  display: block;
+}
+
+.file-highlight {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: auto;
+  justify-content: safe center;
+  padding-top: 1em;
+}
+
+.highlight-lines {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  font-family: 'MesloLGS NF', 'Source Code Pro', 'Roboto Mono', monospace;
+  color: aliceblue;
+  background-color: rgb(200, 200, 200);
+  white-space: pre;
+  min-width: 5em;
+}
+
+.highlight-content {
+  padding: 2em;
+  font-family: 'MesloLGS NF', 'Source Code Pro', 'Roboto Mono', monospace;
+  color: white;
+  background-color: rgb(20,20,20);
+  white-space: pre;
+  min-width: 60em;
+}
+
+.highlight-lines div .good {
+  background-color: green;
+}
+
+.highlight-lines div .bad {
+  background-color: red;
+}
+
+.file-line {
+  min-width: 600px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 600px) {
+  .file-line {
+    min-width: 400px;
+  }
+}
+
+progress[value] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  background: black;
+}
+
+.progress {
+  padding-left: 1em;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.progress span {
+  font-size: 10.5pt;
+  padding-right: 0.5em;
+}

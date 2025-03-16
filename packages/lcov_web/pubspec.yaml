@@ -1,0 +1,28 @@
+name: lcov_web
+resolution: workspace
+description: The client application for rendering `lcov_format` in a browser.
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: ">=3.6.0 <4.0.0"
+
+dependencies:
+  archive: any
+  jaspr: any
+  lcov_format: any
+  logging: any
+  path: any
+  syntax_highlight_light: any
+  web: any
+
+dev_dependencies:
+  build_runner: any
+  build_web_compilers: any
+  jaspr_builder: any
+  jaspr_lints: any
+  lints: any
+
+jaspr:
+  mode: client
+

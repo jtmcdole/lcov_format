@@ -1,0 +1,23 @@
+name: lcov_format
+resolution: workspace
+description: A renderer for LCOV data produced by dart/flutter into some useful outputs.
+version: 1.0.0
+
+environment:
+  sdk: ">=3.6.0 <4.0.0"
+
+executables:
+  lcov_format:
+
+# Add regular dependencies here.
+dependencies:
+  ansicolor: any
+  archive: any
+  args: any
+  crypto: any
+  path: any
+  syntax_highlight_light: any
+
+dev_dependencies:
+  lints: any
+  test: any

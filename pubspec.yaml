@@ -1,0 +1,68 @@
+name: lcov_workspace
+
+workspace:
+  - packages/lcov_format
+  - packages/lcov_web
+  - packages/syntax_highlight_light
+
+environment:
+  sdk: ">=3.7.0 <4.0.0"
+
+dependencies:
+  ansicolor: ^2.0.3
+  archive: ^4.0.4
+  args: ^2.6.0
+  characters: ^1.4.0
+  collection: ^1.19.1
+  crypto: ^3.0.6
+  jaspr: ^0.18.0
+  path: ^1.9.1
+  string_scanner: ^1.4.1
+  web: ">=0.5.0 <2.0.0"
+
+dev_dependencies:
+  melos: ^7.0.0-dev.7
+
+melos:
+  command:
+    bootstrap:
+      environment:
+        sdk: ">=3.6.0 <4.0.0"
+        flutter: ">=3.27.1"
+      dev_dependencies:
+        test: any
+  scripts:
+    lint:all:
+      steps:
+        - analyze
+        - format
+      description: Run all static analysis checks.
+
+    analyze:
+      run: melos exec dart analyze .
+      description: Run `dart analyze` for all packages.
+
+    format-check:
+      run: melos exec dart format . --set-exit-if-changed
+      description: Run `dart format` checks for all packages.
+
+    upgrade: melos exec flutter pub upgrade
+
+    test:select:
+      run: melos exec -c 1 -- flutter test
+      packageFilters:
+        dirExists: test
+      description: Run `flutter test` for selected packages.
+
+    test:
+      run: melos run test:select --no-select
+      description: Run all Flutter tests in this project.
+
+    coverage:
+      steps:
+        - melos exec -- flutter test --coverage
+        # - todo - combine lcov format for all sub package
+        # - melos exec -- genhtml coverage/lcov.info --output-directory=coverage/
+      packageFilters:
+        dirExists: test
+      description: Generate coverage for the selected package.
