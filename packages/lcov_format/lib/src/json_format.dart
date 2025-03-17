@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:lcov_format/lcov.dart';
 import 'package:path/path.dart' as path;
-import 'package:syntax_highlight_light/syntax_highlight_light.dart';
+import 'package:syntax_highlight_lite/syntax_highlight_lite.dart';
 
 Future<void> jsonFormat(
   LcovNode node,

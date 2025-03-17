@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:syntax_highlight_light/syntax_highlight_light.dart';
+import 'package:syntax_highlight_lite/syntax_highlight_lite.dart';
 
 main() async {
   await Highlighter.initialize(['dart']);
@@ -14,9 +14,6 @@ main() async {
 void main(List<String> args) async {
   await foo();
   print('sup dawg');
-
-
-
 }
 ''');
 

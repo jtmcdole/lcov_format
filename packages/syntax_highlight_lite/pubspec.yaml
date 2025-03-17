@@ -1,17 +1,21 @@
-name: syntax_highlight_light 
+name: syntax_highlight_lite 
 resolution: workspace
 description: A simplified version of syntax_highlight but in pure dart so as to be useful outside of Flutter (e.g. jaspr) 
+repository: https://github.com/jtmcdole/lcov_format
 version: 0.0.1
+
+topics:
+  - highlighting
+
 
 environment:
   sdk: ">=3.6.0 <4.0.0"
 
 # Add regular dependencies here.
 dependencies:
-  collection: any
-  characters: any
-  string_scanner: any
+  characters: ^1.4.0
+  collection: ^1.19.1
+  string_scanner: ^1.4.1
 
 dev_dependencies:
-  lints: any
-  test: any
+  lints: ^5.1.1

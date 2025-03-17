@@ -1,24 +1,13 @@
 name: lcov_workspace
+repository: https://github.com/jtmcdole/lcov_format
 
 workspace:
   - packages/lcov_format
   - packages/lcov_web
-  - packages/syntax_highlight_light
+  - packages/syntax_highlight_lite
 
 environment:
   sdk: ">=3.7.0 <4.0.0"
-
-dependencies:
-  ansicolor: ^2.0.3
-  archive: ^4.0.4
-  args: ^2.6.0
-  characters: ^1.4.0
-  collection: ^1.19.1
-  crypto: ^3.0.6
-  jaspr: ^0.18.0
-  path: ^1.9.1
-  string_scanner: ^1.4.1
-  web: ">=0.5.0 <2.0.0"
 
 dev_dependencies:
   melos: ^7.0.0-dev.7
@@ -29,8 +18,6 @@ melos:
       environment:
         sdk: ">=3.6.0 <4.0.0"
         flutter: ">=3.27.1"
-      dev_dependencies:
-        test: any
   scripts:
     lint:all:
       steps:
@@ -66,3 +53,5 @@ melos:
       packageFilters:
         dirExists: test
       description: Generate coverage for the selected package.
+dependencies:
+  characters: ^1.4.0

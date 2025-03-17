@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:lcov_format/lcov.dart';
 import 'package:lcov_web/components/file_list.dart';
 import 'package:lcov_web/utils/download_data.dart';
-import 'package:syntax_highlight_light/syntax_highlight_light.dart' as high;
+import 'package:syntax_highlight_lite/syntax_highlight_lite.dart' as high;
 
 final controller = StreamController<(String file, LcovRecord node)>();
 
