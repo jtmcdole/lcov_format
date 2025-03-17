@@ -4,6 +4,12 @@ description: A renderer for LCOV data produced by dart/flutter into some useful 
 repository: https://github.com/jtmcdole/lcov_format
 version: 0.0.1
 
+screenshots:
+  - description: LCOV html format
+    path: assets/screenshot_html.png
+  - description: LCOV ansi format
+    path: assets/screenshot_ansi.png
+
 environment:
   sdk: ">=3.6.0 <4.0.0"
 
