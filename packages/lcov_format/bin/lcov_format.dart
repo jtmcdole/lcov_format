@@ -85,20 +85,13 @@ handleHtml(LcovNode node, String outPath) async {
   // anything as the user might have other data already there (like lcov)
   await Directory(outPath).create(recursive: true);
 
-  final Uri packageUri;
   // If we're globally activated; start looking there.
-  if (Platform.packageConfig != null) {
-    final packageConfig = await loadPackageConfigUri(Uri.parse(Platform.packageConfig!));
-    final package = packageConfig['lcov_format'];
-    if (package == null) throw 'package error';
-    packageUri = package.root;
-  } else {
-    final root = path.split(Platform.script.path)..length -= 2;
-    if (Platform.isWindows) {
-      root.removeAt(0);
-    }
-    packageUri = Uri.file(path.joinAll(root));
-  }
+  final packageConfig = await findPackageConfigUri(Platform.script);
+  if (packageConfig == null) throw 'package config lookup failed';
+  final package = packageConfig['lcov_format'];
+  if (package == null) throw 'package config error';
+  final packageUri = package.root;
+
   final webFile = File.fromUri(
       packageUri.replace(pathSegments: [...packageUri.pathSegments, 'assets', 'web.tar.bz2']));
   final archive = TarDecoder().decodeBytes(BZip2Decoder().decodeBytes(webFile.readAsBytesSync()));
