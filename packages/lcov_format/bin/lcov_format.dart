@@ -4,9 +4,10 @@ import 'dart:io';
 import 'package:archive/archive_io.dart';
 import 'package:args/args.dart';
 import 'package:crypto/crypto.dart';
-import 'package:path/path.dart' as path;
 import 'package:lcov_format/formatters_io.dart';
 import 'package:lcov_format/lcov.dart';
+import 'package:package_config/package_config.dart';
+import 'package:path/path.dart' as path;
 
 main(List<String> args) async {
   final parser = ArgParser()
@@ -84,12 +85,23 @@ handleHtml(LcovNode node, String outPath) async {
   // anything as the user might have other data already there (like lcov)
   await Directory(outPath).create(recursive: true);
 
-  final root = path.split(Platform.script.path)..length -= 2;
-  if (Platform.isWindows) {
-    root.removeAt(0);
+  final Uri packageUri;
+  // If we're globally activated; start looking there.
+  if (Platform.packageConfig != null) {
+    final packageConfig = await loadPackageConfigUri(Uri.parse(Platform.packageConfig!));
+    final package = packageConfig['lcov_format'];
+    if (package == null) throw 'package error';
+    packageUri = package.root;
+  } else {
+    final root = path.split(Platform.script.path)..length -= 2;
+    if (Platform.isWindows) {
+      root.removeAt(0);
+    }
+    packageUri = Uri.file(path.joinAll(root));
   }
-  final archive = TarDecoder().decodeBytes(BZip2Decoder()
-      .decodeBytes(File(path.joinAll([...root, 'assets', 'web.tar.bz2'])).readAsBytesSync()));
+  final webFile = File.fromUri(
+      packageUri.replace(pathSegments: [...packageUri.pathSegments, 'assets', 'web.tar.bz2']));
+  final archive = TarDecoder().decodeBytes(BZip2Decoder().decodeBytes(webFile.readAsBytesSync()));
   extractArchiveToDiskSync(archive, outPath);
 
   final index = {};

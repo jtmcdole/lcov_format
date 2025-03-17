@@ -53,5 +53,7 @@ melos:
       packageFilters:
         dirExists: test
       description: Generate coverage for the selected package.
+
 dependencies:
   characters: ^1.4.0
+  package_config: ^2.2.0

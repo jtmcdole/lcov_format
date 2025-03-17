@@ -2,7 +2,7 @@ name: lcov_format
 resolution: workspace
 description: A renderer for LCOV data produced by dart/flutter into some useful outputs.
 repository: https://github.com/jtmcdole/lcov_format
-version: 0.0.1
+version: 0.0.2
 
 screenshots:
   - description: LCOV html format
@@ -22,6 +22,7 @@ dependencies:
   archive: ^4.0.4
   args: ^2.7.0
   crypto: ^3.0.6
+  package_config: ^2.2.0
   path: ^1.9.1
   syntax_highlight_lite: ^0.0.1
 
