@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:ansicolor/ansicolor.dart';
@@ -27,10 +26,34 @@ ansiFormat(
   }
 
   printFile(TextSpan fileSpan, LcovRecord node, String fullPath) {
-    final sb = StringBuffer();
+    final zero = AnsiPen()
+      ..red(bg: true)
+      ..black();
+    final cover = AnsiPen()
+      ..green(bg: true)
+      ..black();
+    stdout.writeln('');
+    stdout.writeln(
+        '────┤ $fullPath [${node.linesHit} / ${node.linesFound}] = ${node.percent.toStringAsFixed(2)}% ├────');
+
+    int lineNumber = 1;
+    writeLineHeader() {
+      var hits = node.lines[lineNumber];
+      if (hits == null) {
+        stdout.write('$ansiDefault${' ' * 8} | ');
+      } else if (hits == 0) {
+        stdout.write('$ansiDefault${zero('$hits'.padLeft(8, ' '))} | ');
+      } else {
+        stdout.write('$ansiDefault${cover('$hits'.padLeft(8, ' '))} | ');
+      }
+    }
+
+    writeLineHeader();
     SpanVisitor(
       (span, depth) {
-        if (span.text == null) return;
+        if (span.text == null) {
+          return;
+        }
         var text = span.text!;
 
         final argb = span.style?.foreground.argb ?? 0xFFFFFFFF;
@@ -40,31 +63,18 @@ ansiFormat(
               g: ((argb & 0xFF00) >> 8) / 255,
               b: (argb & 0xFF) / 255);
 
-        sb.write(pen(text));
+        stdout.write(pen.down);
+        for (int i = 0; i < text.length; i++) {
+          final char = text[i];
+          stdout.write(char);
+          if (char == '\n') {
+            lineNumber++;
+            writeLineHeader();
+            stdout.write(pen.down);
+          }
+        }
       },
     ).visit(fileSpan);
-
-    final zero = AnsiPen()
-      ..red(bg: true)
-      ..white();
-    final cover = AnsiPen()
-      ..green(bg: true)
-      ..white();
-    stdout.writeln('');
-    stdout.writeln(
-        '────┤ $fullPath [${node.linesHit} / ${node.linesFound}] = ${node.percent.toStringAsFixed(2)}% ├────');
-    int lineNumber = 1;
-    for (final line in LineSplitter.split('$sb')) {
-      var hits = node.lines[lineNumber];
-      if (hits == null) {
-        stdout.writeln('$ansiDefault${' ' * 8} | $line');
-      } else if (hits == 0) {
-        stdout.writeln('$ansiDefault${zero('$hits'.padLeft(8, ' '))} | $line');
-      } else {
-        stdout.writeln('$ansiDefault${cover('$hits'.padLeft(8, ' '))} | $line');
-      }
-      lineNumber++;
-    }
   }
 
   for (var child in node.children.values) {
