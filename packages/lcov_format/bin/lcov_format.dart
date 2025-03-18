@@ -11,14 +11,14 @@ import 'package:path/path.dart' as path;
 
 main(List<String> args) async {
   final parser = ArgParser()
+    ..addSeparator('lcov_format [-f] [--lcov ... [-o]] [LCOV]...\n')
     ..addOption('format',
         abbr: 'f',
         allowed: ['stats', 'html', 'ansi'],
         defaultsTo: 'stats',
         help: 'control format output')
-    ..addMultiOption('lcov', abbr: 'l', help: 'lcov file(s)')
+    ..addMultiOption('lcov', abbr: 'l', help: 'lcov file(s) - note: you can use "rest"')
     ..addOption('out', abbr: 'o', help: 'output path if format is not stats / ansi')
-    ..addOption('src', abbr: 's', help: 'source folder for code lookup')
     ..addFlag('help', abbr: 'h', help: 'this help text');
 
   final List<String> files;
@@ -27,25 +27,25 @@ main(List<String> args) async {
 
   try {
     final options = parser.parse(args);
-    files = options['lcov'] as List<String>;
-    if (files.isEmpty) throw 'Missing --lcov';
-    format = options['format'];
-    outputFolder = options['out'];
 
     if (options.wasParsed('help')) {
-      stderr.writeln('Usage: ');
       for (final line in LineSplitter.split(parser.usage)) {
         stderr.writeln('  $line');
       }
       exit(0);
     }
 
+    files = options['lcov'] as List<String>;
+    files.addAll(options.rest);
+    if (files.isEmpty) throw 'Missing --lcov';
+    format = options['format'];
+    outputFolder = options['out'];
+
     if (options['format'] == 'html' && !options.wasParsed('out')) {
       throw 'missing --out parameter';
     }
   } catch (e) {
     stderr.writeln('Error: $e');
-    stderr.writeln('Usage: ');
     for (final line in LineSplitter.split(parser.usage)) {
       stderr.writeln('  $line');
     }
