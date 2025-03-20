@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-03-19
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`lcov_format` - `v0.0.4`](#lcov_format---v004)
+
+---
+
+#### `lcov_format` - `v0.0.4`
+
+ - feat: restrict file list vertical size
+
+
 ## 2025-03-17
 
 ### Changes

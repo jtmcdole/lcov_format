@@ -1,3 +1,7 @@
+## 0.0.4
+
+ - feat: restrict file list vertical size
+
 ## 0.0.3+1
 
  - **FIX**: ansi output resetting on newlines. ([c108e259](https://github.com/jtmcdole/lcov_format/commit/c108e259678af1769441dc28aaa507d077975de9))
