@@ -75,8 +75,10 @@ class _HomeState extends State<HomeGuts> {
             )
         ], (String path) {
           log.info('selected: $path, ${rootData[path]}');
-          controller
-              .add((rootData[path]['highlights'], LcovRecord.fromJson(rootData[path]['lcov'])));
+          controller.add((
+            rootData[path]['highlights'],
+            LcovRecord.fromJson(rootData[path]['lcov'])
+          ));
         })
       ],
       classes: 'file-list-container',
