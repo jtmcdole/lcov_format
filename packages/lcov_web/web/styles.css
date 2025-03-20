@@ -128,6 +128,11 @@ ol {
   background-color: red;
 }
 
+.file-list-container {
+  max-height: 10em;
+  overflow-y: auto;
+}
+
 .file-line {
   min-width: 600px;
   display: flex;

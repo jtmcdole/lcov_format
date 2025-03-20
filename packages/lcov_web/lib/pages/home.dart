@@ -65,16 +65,22 @@ class _HomeState extends State<HomeGuts> {
       return;
     }
 
-    yield FileList([
-      for (final path in paths)
-        (path: path, record: LcovRecord.fromJson(rootData[path]['lcov']))
-    ], (String path) {
-      log.info('selected: $path, ${rootData[path]}');
-      controller.add((
-        rootData[path]['highlights'],
-        LcovRecord.fromJson(rootData[path]['lcov'])
-      ));
-    });
+    yield div(
+      [
+        FileList([
+          for (final path in paths)
+            (
+              path: path,
+              record: LcovRecord.fromJson(rootData[path]['lcov']),
+            )
+        ], (String path) {
+          log.info('selected: $path, ${rootData[path]}');
+          controller
+              .add((rootData[path]['highlights'], LcovRecord.fromJson(rootData[path]['lcov'])));
+        })
+      ],
+      classes: 'file-list-container',
+    );
   }
 
   String? selectedFile;
